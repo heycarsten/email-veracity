@@ -1,0 +1,4 @@
+module EmailVeracity
+  
+  
+end
