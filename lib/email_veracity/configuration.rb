@@ -8,7 +8,7 @@ module EmailVeracity
       rogers.com sympatico.ca yahoo.com ]
     @blacklist_domains = %w[ dodgeit.com mintemail.com mintemail.uni.cc
       1mintemail.mooo.com spammotel.com trashmail.net ]
-    @valid_address_pattern = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
+    @valid_address_pattern = /\A(([\d\w\+_\-\.]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})){1}\Z/i
     
     def self.whitelist_domains
       @whitelist_domains
