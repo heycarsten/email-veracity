@@ -1,4 +1,5 @@
 module EmailVeracity
   
+  # ---
   
 end
