@@ -1,6 +1,6 @@
 class ClassWithValidationMock
   
-  include EmailVeracity::Validity
+  include EmailVeracity::Validatability
   
   attr_accessor :give_error
   attr_accessor :give_errors

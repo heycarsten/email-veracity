@@ -3,7 +3,7 @@ module EmailVeracity
   
   class Address
     
-    include Validity
+    include Validatability
     
     attr_reader :domain
     
@@ -24,13 +24,13 @@ module EmailVeracity
       @domain = Domain.new(@email_address.split('@')[1] || '')
     end
     
-    def validate!
-      add_error(:malformed) if !pattern_valid?
-      return if Config.options[:check_pattern_only]
-      add_errors(domain.errors)
-    end
-    
     protected
+      def validate!
+        add_error(:malformed) if !pattern_valid?
+        return if Config.options[:check_pattern_only]
+        add_errors(domain.errors)
+      end
+      
       def pattern_valid?
         @email_address =~ Config.options[:valid_address_pattern]
       end
