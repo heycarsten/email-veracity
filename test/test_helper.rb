@@ -1,6 +1,6 @@
 require 'test/unit'
-require File.dirname(__FILE__) + '/../lib/email_veracity'
-
+require 'lib/email_veracity'
+Dir.glob('test/mocks/*.rb') { |f| require(f) }
 
 class Test::Unit::TestCase
   

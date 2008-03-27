@@ -14,11 +14,13 @@ end
 class DefaultConfigurationAddressValidationsTest < Test::Unit::TestCase
   
   def test_a_well_formed_address_with_a_whitelisted_domain
-    assert EmailVeracity::Address.new('heycarsten@gmail.com').valid?, 'Should be valid.'
+    new_address = EmailVeracity::Address.new('heycarsten@gmail.com')
+    assert new_address.valid?, "Should be valid. @errors: #{new_address.errors.inspect}"
   end
   
   def test_a_well_formed_address_with_a_blacklisted_domain
-    assert EmailVeracity::Address.new('heycarsten@dodgeit.com').valid?, 'Should be valid.'
+    new_address = EmailVeracity::Address.new('heycarsten@dodgeit.com')
+    assert new_address.valid?, "Should be valid. @errors: #{new_address.errors.inspect}"
   end
   
 end

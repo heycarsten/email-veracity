@@ -25,9 +25,9 @@ module EmailVeracity
     end
     
     def validate!
-      add_error << :malformed if !pattern_valid?
+      add_error(:malformed) if !pattern_valid?
       return if Config.options[:check_pattern_only]
-      add_errors domain.errors
+      add_errors(domain.errors)
     end
     
     protected

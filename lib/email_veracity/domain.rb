@@ -24,21 +24,21 @@ module EmailVeracity
     end
     
     def address_servers
-      @address_servers ||= retrieve_servers_in(:address)
+      @address_servers = retrieve_servers_in(:address)
     end
     
     def exchange_servers
-      @exchange_servers ||= retrieve_servers_in(:exchange)
+      @exchange_servers = retrieve_servers_in(:exchange)
     end
     
     def validate!
       return if Config.options[:offline]
       return if Config.whitelisted_domain?(name)
-      add_error :blacklisted_domain if Config.blacklisted_domain?(name) &&
+      add_error(:blacklisted_domain) if Config.blacklisted_domain?(name) &&
         !Config.options[:skip_blacklist_domains]
-      add_error :no_address_servers if address_servers.empty? &&
+      add_error(:no_address_servers) if address_servers.empty? &&
         !Config.options[:skip_a_record_check]
-      add_error :no_exchange_servers if exchange_servers.empty? &&
+      add_error(:no_exchange_servers) if exchange_servers.empty? &&
         !Config.options[:skip_mx_record_check]
     end
     

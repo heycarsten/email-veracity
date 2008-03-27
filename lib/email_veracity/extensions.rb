@@ -7,6 +7,10 @@ module EmailVeracity
       reject { |i| i.to_s.strip.eql?('') }
     end
     
+    def contains_one_item?
+      size == 1
+    end
+    
   end
   
   
@@ -16,29 +20,31 @@ module EmailVeracity
       self.errors.empty?
     end
     
+    def errors
+      self.clear_errors!
+      self.validate!
+      @errors
+    end
+    
     def validate!
       # This method adds errors to the object.
     end
     
-    def clear_errors!
-      @errors = []
-    end
-    
-    def add_error(error)
-      @errors ||= []
-      if error.is_a?(Array)
-        @errors | error
-      else
-        @errors << error
+    protected
+      def clear_errors!
+        @errors = []
       end
-    end
-    alias_method :add_errors, :add_error
     
-    def errors
-      self.clear_errors!
-      self.validate!
-      (@errors || []).flatten
-    end
+      def add_error(*new_errors)
+        @errors = [] unless defined?(@errors)
+        if new_errors.contains_one_item?
+          error = new_errors.pop
+          @errors << error unless error.is_a?(Array)
+        else
+          @errors.concat(new_errors)
+        end
+      end
+      alias_method :add_errors, :add_error
     
   end
   
