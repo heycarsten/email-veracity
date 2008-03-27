@@ -5,13 +5,15 @@ module EmailVeracity
   class Server
     
     attr_accessor :name
+    attr_accessor :type
+    
+    def initialize(name = '', type = nil)
+      @name = name
+      @type = type
+    end
     
     def to_s #:nodoc:
       name
-    end
-    
-    def initialize(name = '')
-      self.name = name
     end
     
   end

@@ -3,7 +3,8 @@ module EmailVeracity
   
   class Address
     
-    attr_accessor :email_address
+    include Validity
+    
     attr_reader :domain
     
     def initialize(email = '')
@@ -11,16 +12,22 @@ module EmailVeracity
     end
     
     def to_s
-      @email_address.to_s
+      email_address
+    end
+    
+    def email_address
+      @email_address.to_s.strip
     end
     
     def email_address=(new_email_address)
       @email_address = new_email_address
-      @domain = Domain.new((@email_address.split('@')[1] || '').split)
+      @domain = Domain.new(@email_address.split('@')[1] || '')
     end
     
-    def valid?
-      pattern_valid? && domain.valid?
+    def validate!
+      add_error << :malformed if !pattern_valid?
+      return if Config.options[:check_pattern_only]
+      add_errors domain.errors
     end
     
     protected

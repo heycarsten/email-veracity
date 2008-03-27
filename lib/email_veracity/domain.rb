@@ -1,41 +1,57 @@
 module EmailVeracity
   
   
-  # Defines a domain and contains methods used to retrieve information from it such
-  # as mail exchange and address server information.
   class Domain
     
-    attr_accessor :name
+    include Validity
+    
+    DNS_RECORD_MAP = {
+      :address => Resolv::DNS::Resource::IN::A,
+      :exchange => Resolv::DNS::Resource::IN::MX }
+    
+    @@resolver = Resolv::DNS.new
     
     def initialize(name = '')
-      self.name = name
+      @name = name
     end
     
-    def to_s #:nodoc:
+    def to_s
       name
     end
     
-    def address_servers(options = {})
-      servers_in :address, options
+    def name
+      @name.to_s.downcase.strip
     end
     
-    def exchange_servers(options = {})
-      servers_in :exchange, options
+    def address_servers
+      @address_servers ||= retrieve_servers_in(:address)
+    end
+    
+    def exchange_servers
+      @exchange_servers ||= retrieve_servers_in(:exchange)
+    end
+    
+    def validate!
+      return if Config.options[:offline]
+      return if Config.whitelisted_domain?(name)
+      add_error :blacklisted_domain if Config.blacklisted_domain?(name) &&
+        !Config.options[:skip_blacklist_domains]
+      add_error :no_address_servers if address_servers.empty? &&
+        !Config.options[:skip_a_record_check]
+      add_error :no_exchange_servers if exchange_servers.empty? &&
+        !Config.options[:skip_mx_record_check]
     end
     
     protected
-      def servers_in(record, options = {})
-        type = case record.to_s.downcase
-          when 'exchange' : Resolv::DNS::Resource::IN::MX
-          when 'address' : Resolv::DNS::Resource::IN::A
-        end
-        st = Timeout::timeout(options.fetch(:timeout, 2)) do
-          Resolv::DNS.new.getresources(name, type).inject([]) do |servers, s|
-            servers << Server.new(s.send(record).to_s)
-          end
+      def retrieve_servers_in(record)
+        status = Timeout::timeout(Config.options[:timeout]) do
+          records = @@resolver.getresources(name, DNS_RECORD_MAP[record])
+          records.inject([]) do |array, resource|
+            array << resource.method(record).call.to_s.strip
+          end.reject_blank_items
         end
        rescue Timeout::Error
-        nil
+        add_error :timed_out
       end
       
   end
