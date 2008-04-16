@@ -1,0 +1,18 @@
+= Email Veracity
+
+A straight-forward Ruby library for checking the real-world validity of email
+addresses.
+
+
+== It Can
+
+ * Validate email addresses for proper form against a pattern.
+ * Reject and accept addresses based whitelists and blacklists of domains.
+ * Check an addresses domain for MX and/or A records.
+ * Be configured for a variety of use-cases, to be as discerning or as
+   indiscriminate as you would like.
+
+== It Can Not
+
+ * Validate all possible permutations of addresses to the RFC 2822
+   specification.

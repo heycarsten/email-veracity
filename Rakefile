@@ -19,15 +19,18 @@ end
 # Packaging
 spec = Gem::Specification.new do |spec|
   spec.name = 'email-veracity'
-  spec.summary = 'A simple library for validating the format and existence of email addresses.'
+  spec.summary = 'A straight-forward library for checking the real-world
+    validity of email addresses.'
   spec.version = File.read('VERSION').strip
   spec.author = 'Carsten Nielsen'
   spec.email = 'heycarsten@gmail.com'
-  spec.description = 'Email Veracity is a simple library that provides the ability to validate the form and existence of email addresses through a simple object.'
+  spec.description = 'Email Veracity is a set of simple classes that can be
+    used to query an email address for information.'
   readmes = FileList.new('*'){|list|
     list.exclude(/[a-z]/)
     list.exclude('TODO') }.to_a
-  spec.files = FileList['lib/**/*', 'bin/*', 'test/**/*', 'Rakefile', 'init.rb'].to_a + readmes
+  spec.files = FileList['lib/**/*', 'bin/*', 'test/**/*', 'Rakefile',
+    'init.rb'].to_a + readmes
   spec.autorequire = %w|  |
   spec.homepage = 'http://heycarsten.com'
   spec.has_rdoc = true

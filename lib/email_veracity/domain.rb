@@ -1,30 +1,30 @@
 module EmailVeracity
-  
-  
+
+
   class Domain
-    
+
     include Validatability
-    
+
     def initialize(name = '')
       @name = name
     end
-    
+
     def to_s
       name
     end
-    
+
     def name
       @name.to_s.downcase.strip
     end
-    
+
     def address_servers
-      @address_servers = address_servers
+      @address_servers ||= address_servers
     end
-    
+
     def exchange_servers
-      @exchange_servers = mail_exchange_servers
+      @exchange_servers ||= mail_exchange_servers
     end
-    
+
     protected
       def validate!
         return if Config.options[:offline]
@@ -36,22 +36,22 @@ module EmailVeracity
         add_error(:no_exchange_servers) if exchange_servers.empty? &&
           !Config.options[:skip_mx_record_check]
       end
-      
+
       def address_servers
         servers_in :a
       end
-      
+
       def mail_exchange_servers
         servers_in :mx
       end
-      
+
       def servers_in(record)
         DomainResolver.get_servers_for(name, :in => record)
-       rescue Timeout::Error
+       rescue DomainResourcesTimeoutError
         add_error :timed_out
       end
-      
+
   end
-  
-  
+
+
 end

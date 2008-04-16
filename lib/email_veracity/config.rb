@@ -1,8 +1,8 @@
 module EmailVeracity
-  
-  
+
+
   class Config
-    
+
     # Set the defaults...
     @options = {
       :whitelist_domains => %w[ aol.com gmail.com hotmail.com mac.com msn.com
@@ -16,20 +16,20 @@ module EmailVeracity
       :skip_blacklist_domains => true,
       :skip_whitelist_domains => false,
       :check_pattern_only => false }
-    
+
     def self.options
       @options
     end
-    
+
     def self.blacklisted_domain?(domain)
       @options[:blacklist_domains].include?(domain.downcase.strip)
     end
-    
+
     def self.whitelisted_domain?(domain)
       @options[:whitelist_domains].include?(domain.downcase.strip)
     end
-    
+
   end
-  
-  
+
+
 end
