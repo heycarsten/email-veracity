@@ -31,7 +31,6 @@ spec = Gem::Specification.new do |spec|
     list.exclude('TODO') }.to_a
   spec.files = FileList['lib/**/*', 'bin/*', 'test/**/*', 'Rakefile',
     'init.rb'].to_a + readmes
-  spec.autorequire = %w|  |
   spec.homepage = 'http://heycarsten.com'
   spec.has_rdoc = true
   spec.extra_rdoc_files = readmes
