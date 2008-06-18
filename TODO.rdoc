@@ -1,0 +1,3 @@
+* Create AR and Validatable plugins.
+* Structure things properly so that it is possible to run tests without a
+  live connection to the internet.
