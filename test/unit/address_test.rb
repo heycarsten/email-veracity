@@ -18,27 +18,32 @@ end
 class DefaultConfigurationAddressValidationsTest < Test::Unit::TestCase
 
   def test_a_well_formed_address_with_a_whitelisted_domain
-    new_address = EmailVeracity::Address.new('heycarsten@gmail.com')
-    assert new_address.valid?,
-      "Should be valid. @errors: #{new_address.errors.inspect}"
+    address = new_address('heycarsten@gmail.com')
+    assert address.valid?,
+      "Should be valid. @errors: #{address.errors.inspect}"
   end
 
   def test_a_well_formed_address_with_a_blacklisted_domain
-    new_address = EmailVeracity::Address.new('heycarsten@dodgeit.com')
-    assert new_address.valid?,
-      "Should be valid. @errors: #{new_address.errors.inspect}"
+    address = new_address('heycarsten@dodgeit.com')
+    assert address.valid?,
+      "Should be valid. @errors: #{address.errors.inspect}"
   end
 
   def test_a_well_formed_address_that_does_not_exist
-    flunk
+    address = new_address('heycarsten@i-surely-do-not-exist.nil')
+    assert !address.valid?,
+      'Should not be valid.'
   end
 
   def test_a_well_formed_address_that_exists
-    flunk
+    address = new_address('itsme@heycarsten.com')
+    assert address.valid?,
+      "Should be valid. @errors: #{address.errors.inspect}"
   end
 
-  def test_a_well_formed_address_that_times_out
-    flunk
-  end
+  private
+    def new_address(address = '')
+      EmailVeracity::Address.new(address)
+    end
 
 end

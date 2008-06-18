@@ -19,8 +19,15 @@ addresses.
   specification.
 
 
+== Using The Plugins
 
-=== Notes About Running The Tests
+There are plugins for ActiveRecord and Validatable
 
-A few of the tests will fail if you don't have a live connection to the internet, this is obviously not cool and it's high on my list of todos. [See
-TODO.rdoc]
+  require 'email_veracity'
+
+
+=== Running The Tests
+
+A few of the tests will fail if you don't have a live connection to the
+internet, this is obviously not cool and it's high on my list of TODOs. [See
+TODO]

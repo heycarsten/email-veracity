@@ -1,0 +1,4 @@
+* Get this core gem production ready.
+* Create ActiveRecord and Validatable (DataMapper) plugins.
+* Structure things properly so that it is possible to run tests without a
+  live connection to the internet.

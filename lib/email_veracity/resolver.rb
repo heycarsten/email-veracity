@@ -26,11 +26,11 @@ module EmailVeracity
         Resolv::DNS.open do |server|
           record_map = RECORD_NAMES_TO_RESOLVE_MAP[setup[:in]]
           resources = server.getresources(domain_name, record_map[:constant])
-          resolv_resources_to_servers(resources, record_map[:method])
+          resolve_resources_to_servers(resources, record_map[:method])
         end
       end
 
-      def Resolver.resolv_resources_to_servers(resolv_resources, resolv_method)
+      def Resolver.resolve_resources_to_servers(resolv_resources, resolv_method)
         resolv_resources.inject([]) do |array, resource|
           array << resource.method(resolv_method).call.to_s.strip
         end.reject_blank_items
