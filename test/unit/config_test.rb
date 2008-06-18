@@ -78,7 +78,7 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       someone@somewhere
       this!fails@comtown.com
       $oWrong@fail.net
-      charles\ babbage@cabbage.org
+      charles\ babbage@gmail.com
       ,@crap.com
       dis%20blos@dot.com
       &^%$#$%@yojimbo.nil
