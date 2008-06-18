@@ -18,11 +18,11 @@ module EmailVeracity
     end
 
     def address_servers
-      @address_servers ||= address_servers
+      @address_servers ||= servers_in(:a)
     end
 
     def exchange_servers
-      @exchange_servers ||= mail_exchange_servers
+      @exchange_servers ||= servers_in(:mx)
     end
 
     protected
@@ -35,14 +35,6 @@ module EmailVeracity
           !Config.options[:skip_a_record_check]
         add_error(:no_exchange_servers) if exchange_servers.empty? &&
           !Config.options[:skip_mx_record_check]
-      end
-
-      def address_servers
-        servers_in :a
-      end
-
-      def mail_exchange_servers
-        servers_in :mx
       end
 
       def servers_in(record)
