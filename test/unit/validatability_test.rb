@@ -14,10 +14,11 @@ class ValidatabilityTest < Test::Unit::TestCase
     mock.give_error = true
     assert_equal 1, mock.errors.size, 'Should set one error.'
     mock.give_errors = true
-    assert_equal [:error_one, :error_two, :error_three], mock.errors,
-      'Should have three errors.'
-    assert_equal 3, mock.errors.size,
-      'Should reset errors then set one error and two more.'
+    assert_equal [:one, :two, :three], mock.errors,
+      'Should push tow new errors for a total of three.'
+    mock.give_array_of_errors = true
+    assert_equal [:one, :two, :three, :four, :five], mock.errors,
+      'Should concat the array leaving two new errors for a total of five.'
   end
 
   def test_valid?

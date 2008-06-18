@@ -10,12 +10,19 @@ class ArrayExtensionsTest < Test::Unit::TestCase
     assert_equal array, array.reject_blank_items, 'Should not reject any filled or not-blank objects.'
   end
 
-  def test_has_one_item?
-    assert [''].has_one_item?, 'Should contain one item.'
-    assert [nil].has_one_item?, 'Should contain one item.'
-    assert [[]].has_one_item?, 'Should contain one item.'
-    assert ![].has_one_item?, 'Should not contain one item.'
-    assert ![nil, false].has_one_item?, 'Should not contain one item.'
+  def test_contains_single_item
+    assert [''].contains_single_item?, 'Should contain one item.'
+    assert [nil].contains_single_item?, 'Should contain one item.'
+    assert [[]].contains_single_item?, 'Should contain one item.'
+    assert ![].contains_single_item?, 'Should not contain one item.'
+    assert ![nil, false].contains_single_item?, 'Should not contain one item.'
+  end
+
+  def test_blank
+    assert [].blank?, '[] should be blank.'
+    assert ''.blank?, '"" should be blank.'
+    assert Hash.new.blank?, '{} should be blank.'
+    assert nil.blank?, 'nil should be blank.'
   end
 
 end

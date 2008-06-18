@@ -12,4 +12,22 @@ class Test::Unit::TestCase
       del.icio.us ]
   end
 
+  def assert_empty(array, message = nil)
+    unless array.is_a?(Array)
+      raise ArgumentError, 'First argument must be an Array'
+    end
+    message = [message, "Expected #{array.inspect} to be empty."].
+      flatten.join("\n")
+    assert_block(message) { array.empty? }
+  end
+
+  def assert_not_empty(array, message = nil)
+    unless array.is_a?(Array)
+      raise ArgumentError, 'First argument must be an Array'
+    end
+    message = [message, "Expected #{array.inspect} to contain items."].
+      flatten.join("\n")
+    assert_block(message) { !array.empty? }
+  end
+
 end

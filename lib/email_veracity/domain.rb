@@ -38,6 +38,7 @@ module EmailVeracity
       end
 
       def servers_in(record)
+        return [] if name.blank?
         Resolver.get_servers_for(name, :in => record)
        rescue DomainResourcesTimeoutError
         add_error :timed_out

@@ -24,12 +24,7 @@ module EmailVeracity
 
       def add_error(*new_errors)
         @errors ||= []
-        if new_errors.has_one_item?
-          error = new_errors.pop
-          @errors << error unless error.is_a?(Array)
-        else
-          @errors.concat(new_errors)
-        end
+        @errors.concat(new_errors.flatten)
       end
       alias_method :add_errors, :add_error
 

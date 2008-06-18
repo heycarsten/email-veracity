@@ -22,6 +22,5 @@ addresses.
 
 === Notes About Running The Tests
 
-You will need to have ZenTest installed to run the tests properly.  Also a few
-of the tests will fail if you don't have a live connection to the internet, this
-is obviously not cool and it's high on my list of todos. [See TODO.rdoc]
+A few of the tests will fail if you don't have a live connection to the internet, this is obviously not cool and it's high on my list of todos. [See
+TODO.rdoc]
