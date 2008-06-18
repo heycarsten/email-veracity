@@ -4,26 +4,44 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ConfigTest < Test::Unit::TestCase
 
   def test_default_whitelist_domains
-    assert_instance_of Array, EmailVeracity::Config[:whitelist_domains]
-    assert_not_empty EmailVeracity::Config[:whitelist_domains],
+    assert_instance_of Array, EmailVeracity::Config[:whitelist]
+    assert_not_empty EmailVeracity::Config[:whitelist],
       'Should have more than one item.'
   end
 
   def test_default_blacklist_domains
-    assert_instance_of Array, EmailVeracity::Config[:blacklist_domains]
-    assert_not_empty EmailVeracity::Config[:blacklist_domains],
+    assert_instance_of Array, EmailVeracity::Config[:blacklist]
+    assert_not_empty EmailVeracity::Config[:blacklist],
       'Should have more than one item.'
   end
 
-  def test_default_valid_address_pattern
-    assert_instance_of Regexp, EmailVeracity::Config[:valid_address_pattern],
-      'Should exist as a regular expression.'
+  def test_lookup_default_setting
+    assert_instance_of Array, EmailVeracity::Config[:lookup]
+  end
+
+  def test_enforce_lookup_with_symbols
+    assert EmailVeracity::Config.enforce_lookup?(:a),
+      'Should check for A records by default'
+    assert !EmailVeracity::Config.enforce_lookup?(:mx),
+      'Should not check for MX records be default'
+  end
+
+  def test_enforce_lookup_with_strings
+    assert EmailVeracity::Config.enforce_lookup?('a'),
+      'Should check for A records by default'
+    assert !EmailVeracity::Config.enforce_lookup?('mx'),
+      'Should not check for MX records be default'
   end
 
 end
 
 
 class DefaultValidAddressPatternTest < Test::Unit::TestCase
+
+  def test_default_valid_address_pattern
+    assert_instance_of Regexp, EmailVeracity::Config[:valid_pattern],
+      'Should exist as a regular expression.'
+  end
 
   def test_valid_email_addresses
     %w[
@@ -41,7 +59,7 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       jesus@god.com
       neat@b.eat
     ].each do |address|
-      assert_match EmailVeracity::Config[:valid_address_pattern],
+      assert_match EmailVeracity::Config[:valid_pattern],
         address,
         "#{address} should be valid."
     end
@@ -66,7 +84,7 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       failure@10.0.0.1
       douche@@bag.net
     ].each do |address|
-      assert_no_match EmailVeracity::Config[:valid_address_pattern],
+      assert_no_match EmailVeracity::Config[:valid_pattern],
         address,
         "#{address} should be invalid."
     end

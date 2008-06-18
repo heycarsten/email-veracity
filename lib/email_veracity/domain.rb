@@ -6,11 +6,11 @@ module EmailVeracity
     include Validatability
 
     def Domain.whitelisted?(name)
-      Config[:whitelist_domains].include?(name.downcase.strip)
+      Config[:whitelist].include?(name.downcase.strip)
     end
 
     def Domain.blacklisted?(name)
-      Config[:blacklist_domains].include?(name.downcase.strip)
+      Config[:blacklist].include?(name.downcase.strip)
     end
 
     def initialize(name = '')
@@ -44,12 +44,12 @@ module EmailVeracity
     protected
       def validate!
         return if whitelisted?
-        add_error(:blacklisted_domain) if blacklisted? &&
-          !Config[:skip_blacklist_domains]
+        add_error(:blacklisted) if blacklisted? &&
+          Config[:enforce_blacklist]
         add_error(:no_address_servers) if address_servers.empty? &&
-          !Config[:skip_a_record_check]
+          Config.enforce_lookup?(:a)
         add_error(:no_exchange_servers) if exchange_servers.empty? &&
-          !Config[:skip_mx_record_check]
+          Config.enforce_lookup?(:mx)
       end
 
       def servers_in(record)
