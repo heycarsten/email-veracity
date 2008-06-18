@@ -12,9 +12,6 @@ require 'email_veracity/server'
 require 'email_veracity/domain'
 require 'email_veracity/address'
 
-
 module EmailVeracity
-
   VERSION = File.read('../VERSION').strip unless defined?(VERSION)
-
 end

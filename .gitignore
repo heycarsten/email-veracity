@@ -1,4 +1,4 @@
-.DS_Store
-/rdoc
-/pkg
 .autotest
+.DS_Store
+/pkg
+/rdoc

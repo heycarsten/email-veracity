@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ResolverTest < Test::Unit::TestCase
 
-  def test_consecutive_resolve_queries
+  def test_consecutive_queries
     EmailVeracity::Config.options[:timeout] = 60
     assert_nothing_raised do
       domain_names.each do |domain|

@@ -5,13 +5,13 @@ class ConfigTest < Test::Unit::TestCase
 
   def test_default_whitelist_domains
     assert_instance_of Array, EmailVeracity::Config.options[:whitelist_domains]
-    assert_operator EmailVeracity::Config.options[:whitelist_domains].size, :>, 1,
+    assert_not_empty EmailVeracity::Config.options[:whitelist_domains],
       'Should have more than one item.'
   end
 
   def test_default_blacklist_domains
     assert_instance_of Array, EmailVeracity::Config.options[:blacklist_domains]
-    assert_operator EmailVeracity::Config.options[:blacklist_domains].size, :>, 1,
+    assert_not_empty EmailVeracity::Config.options[:blacklist_domains],
       'Should have more than one item.'
   end
 

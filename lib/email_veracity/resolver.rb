@@ -12,7 +12,7 @@ module EmailVeracity
         :constant => Resolv::DNS::Resource::IN::MX } }
 
     def self.get_servers_for(domain_name, options = {})
-      st = Timeout::timeout(Config.options[:timeout]) do
+      Timeout::timeout(Config.options[:timeout]) do
         get_resources_for domain_name, options
       end
      rescue Timeout::Error
