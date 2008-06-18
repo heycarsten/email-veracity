@@ -16,26 +16,26 @@ module EmailVeracity
       :skip_whitelist_domains => false,
       :check_pattern_only => false }
 
-    def self.[](key)
+    def Config.[](key)
       @options[key.to_sym]
     end
 
-    def self.[]=(key, value)
+    def Config.[]=(key, value)
       @options[key.to_sym] = value
     end
 
-    def self.options
+    def Config.options
       @options
     end
 
-    def self.options=(options)
+    def Config.options=(options)
       unless options.is_a?(Hash)
         raise ArgumentError, "options must be a Hash not #{options.class}"
       end
       @options = options
     end
 
-    def self.revert_to_defaults!
+    def Config.revert_to_defaults!
       options = DEFAULT_OPTIONS
     end
 
