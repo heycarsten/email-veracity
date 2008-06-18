@@ -29,8 +29,16 @@ class DefaultConfigurationAddressValidationsTest < Test::Unit::TestCase
       "Should be valid. @errors: #{new_address.errors.inspect}"
   end
 
-  def test_more
-    flunk 'Need more tests!!!'
+  def test_a_well_formed_address_that_does_not_exist
+    flunk
+  end
+
+  def test_a_well_formed_address_that_exists
+    flunk
+  end
+
+  def test_a_well_formed_address_that_times_out
+    flunk
   end
 
 end

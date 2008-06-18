@@ -3,7 +3,7 @@ module EmailVeracity
 
   class Resolver
 
-    RECORD_NAMES_TO_RESOLV_MAP = {
+    RECORD_NAMES_TO_RESOLVE_MAP = {
       :a => {
         :method => 'address',
         :constant => Resolv::DNS::Resource::IN::A },
@@ -12,8 +12,8 @@ module EmailVeracity
         :constant => Resolv::DNS::Resource::IN::MX } }
 
     def self.get_servers_for(domain_name, options = {})
-      Timeout::timeout(Config.options[:timeout]) do
-        get_resources_for domain_name, options
+      Timeout::timeout(Config[:timeout]) do
+        get_resources_for(domain_name, options)
       end
      rescue Timeout::Error
       raise DomainResourcesTimeoutError,
@@ -24,7 +24,7 @@ module EmailVeracity
       def self.get_resources_for(domain_name, options = {})
         setup = { :in => :a }.update(options)
         Resolv::DNS.open do |server|
-          record_map = RECORD_NAMES_TO_RESOLV_MAP[setup[:in]]
+          record_map = RECORD_NAMES_TO_RESOLVE_MAP[setup[:in]]
           resources = server.getresources(domain_name, record_map[:constant])
           resolv_resources_to_servers(resources, record_map[:method])
         end

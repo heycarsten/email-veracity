@@ -4,42 +4,20 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ConfigTest < Test::Unit::TestCase
 
   def test_default_whitelist_domains
-    assert_instance_of Array, EmailVeracity::Config.options[:whitelist_domains]
-    assert_not_empty EmailVeracity::Config.options[:whitelist_domains],
+    assert_instance_of Array, EmailVeracity::Config[:whitelist_domains]
+    assert_not_empty EmailVeracity::Config[:whitelist_domains],
       'Should have more than one item.'
   end
 
   def test_default_blacklist_domains
-    assert_instance_of Array, EmailVeracity::Config.options[:blacklist_domains]
-    assert_not_empty EmailVeracity::Config.options[:blacklist_domains],
+    assert_instance_of Array, EmailVeracity::Config[:blacklist_domains]
+    assert_not_empty EmailVeracity::Config[:blacklist_domains],
       'Should have more than one item.'
   end
 
   def test_default_valid_address_pattern
-    assert_instance_of Regexp, EmailVeracity::Config.options[:valid_address_pattern],
+    assert_instance_of Regexp, EmailVeracity::Config[:valid_address_pattern],
       'Should exist as a regular expression.'
-  end
-
-  def test_blacklisted_domain
-    assert EmailVeracity::Config.blacklisted_domain?('dodgeit.com'),
-      'Should match a blacklisted domain.'
-    assert EmailVeracity::Config.blacklisted_domain?('DoDgEiT.cOm'),
-      'Should match a blacklisted domain regardless of case.'
-    assert EmailVeracity::Config.blacklisted_domain?(" dodgeit.com  \r\n "),
-      'Should match a blacklisted domain regardless of whitespace.'
-    assert !EmailVeracity::Config.blacklisted_domain?('iamnotblacklisted.com'),
-      'Should not match a non-blacklisted domain.'
-  end
-
-  def test_whitelisted_domain
-    assert EmailVeracity::Config.whitelisted_domain?('gmail.com'),
-      'Should match a whitelisted domain.'
-    assert EmailVeracity::Config.whitelisted_domain?('GmAiL.cOm'),
-      'Should match a whitelisted domain regardless of case.'
-    assert EmailVeracity::Config.whitelisted_domain?(" gmail.com  \r\n "),
-      'Should match a whitelisted domain regardless of whitespace.'
-    assert !EmailVeracity::Config.whitelisted_domain?('iamnotwhitelisted.com'),
-      'Should not match a non-whitelisted domain.'
   end
 
 end
@@ -63,7 +41,7 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       jesus@god.com
       neat@b.eat
     ].each do |address|
-      assert_match EmailVeracity::Config.options[:valid_address_pattern],
+      assert_match EmailVeracity::Config[:valid_address_pattern],
         address,
         "#{address} should be valid."
     end
@@ -88,7 +66,7 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       failure@10.0.0.1
       douche@@bag.net
     ].each do |address|
-      assert_no_match EmailVeracity::Config.options[:valid_address_pattern],
+      assert_no_match EmailVeracity::Config[:valid_address_pattern],
         address,
         "#{address} should be invalid."
     end

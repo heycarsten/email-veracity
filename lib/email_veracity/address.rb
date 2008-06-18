@@ -27,12 +27,12 @@ module EmailVeracity
     protected
       def validate!
         add_error(:malformed) if !pattern_valid?
-        return if Config.options[:check_pattern_only]
+        return if Config[:check_pattern_only]
         add_errors(domain.errors)
       end
 
       def pattern_valid?
-        @email_address =~ Config.options[:valid_address_pattern]
+        @email_address =~ Config[:valid_address_pattern]
       end
 
   end
