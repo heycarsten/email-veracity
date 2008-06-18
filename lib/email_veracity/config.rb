@@ -3,7 +3,6 @@ module EmailVeracity
 
   class Config
 
-    # Set the defaults...
     @options = {
       :whitelist_domains => %w[ aol.com gmail.com hotmail.com mac.com msn.com
         rogers.com sympatico.ca yahoo.com telus.com sprint.com sprint.ca ],

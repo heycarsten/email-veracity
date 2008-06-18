@@ -11,14 +11,9 @@ module EmailVeracity
         :method => 'exchange',
         :constant => Resolv::DNS::Resource::IN::MX } }
 
-    @@resolver = Resolv::DNS.new
-
     def self.get_servers_for(domain_name, options = {})
-      setup = { :in => :a }.update(options)
       st = Timeout::timeout(Config.options[:timeout]) do
-        resolv = RECORD_NAMES_TO_RESOLV_MAP[setup[:in]]
-        resources = @@resolver.getresources(domain_name, resolv[:constant])
-        resolv_resources_to_servers(resources, resolv[:method])
+        get_resources_for domain_name, options
       end
      rescue Timeout::Error
       raise DomainResourcesTimeoutError,
@@ -26,6 +21,15 @@ module EmailVeracity
     end
 
     protected
+      def self.get_resources_for(domain_name, options = {})
+        setup = { :in => :a }.update(options)
+        Resolv::DNS.open do |server|
+          record_map = RECORD_NAMES_TO_RESOLV_MAP[setup[:in]]
+          resources = server.getresources(domain_name, record_map[:constant])
+          resolv_resources_to_servers(resources, record_map[:method])
+        end
+      end
+
       def self.resolv_resources_to_servers(resolv_resources, resolv_method)
         resolv_resources.inject([]) do |array, resource|
           array << resource.method(resolv_method).call.to_s.strip
