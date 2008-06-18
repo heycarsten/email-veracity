@@ -43,7 +43,6 @@ module EmailVeracity
 
     protected
       def validate!
-        return if Config[:offline]
         return if whitelisted?
         add_error(:blacklisted_domain) if blacklisted? &&
           !Config[:skip_blacklist_domains]
