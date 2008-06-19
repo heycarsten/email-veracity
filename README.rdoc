@@ -24,7 +24,7 @@ addresses.
 In your project, you must require +email_veracity+ after that you can try it
 out, consider the following examples:
 
- 
+
  require 'email_veracity'
  
  address = EmailVeracity::Address.new('heycarsten@gmail.com')
@@ -45,7 +45,7 @@ out, consider the following examples:
  
  address.errors
  # => [:no_address_servers]
- 
+
 
 As you can see, playing with the core library is pretty fun.  The basic building
 blocks are:

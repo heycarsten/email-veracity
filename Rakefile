@@ -1,69 +1,93 @@
+# I used Haml as a template for these tasks: Thank you Nex3!
 require 'rubygems'
 require 'rake'
-require 'rake/testtask'
-require 'rake/gempackagetask'
-require 'rake/rdoctask'
 
 
-desc 'Default: run unit tests.'
 task :default => :test
 
-desc 'Test Email Veracity'
-Rake::TestTask.new(:test) do |t|
+require 'rake/testtask'
+
+Rake::TestTask.new do |t|
   t.libs << 'lib'
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
 
 
-# Packaging
-spec = Gem::Specification.new do |spec|
-  spec.name = 'email-veracity'
-  spec.summary = 'A straight-forward library for checking the real-world
-    validity of email addresses.'
-  spec.version = File.read('VERSION').strip
-  spec.author = 'Carsten Nielsen'
-  spec.email = 'heycarsten@gmail.com'
-  spec.description = 'Email Veracity is a set of simple classes that can be
-    used to query an email address for information.'
-  readmes = FileList.new('*'){|list|
-    list.exclude(/[a-z]/)
-    list.exclude('TODO') }.to_a
-  spec.files = FileList['lib/**/*', 'bin/*', 'test/**/*', 'Rakefile',
-    'init.rb'].to_a + readmes
-  spec.homepage = 'http://heycarsten.com'
-  spec.has_rdoc = true
-  spec.extra_rdoc_files = readmes
-  spec.rdoc_options += [
-    '--title', 'Email Veracity',
-    '--main', 'README',
-    #'--exclude', '?',
-    '--line-numbers',
-    '--inline-source'
-  ]
-  spec.test_files = FileList['test/**/*_test.rb'].to_a
+
+### Packaging
+require 'rake/gempackagetask'
+load    'email_veracity.gemspec'
+Rake::GemPackageTask.new(EMAIL_VERACITY_GEMSPEC) do |pkg|
+  if Rake.application.top_level_tasks.include?('release')
+    pkg.need_tar_gz = true
+    pkg.need_tar_bz2 = true
+    pkg.need_zip = true
+  end
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.need_zip     = true
-  pkg.need_tar_gz  = true
-  pkg.need_tar_bz2 = true
+
+task :revision_file do
+  require 'lib/email_veracity'
+
+  if EmailVeracity.version[:rev] && !Rake.application.top_level_tasks.include?('release')
+    File.open('REVISION', 'w') { |f| f.puts EmailVeracity.version[:rev] }
+  elsif Rake.application.top_level_tasks.include?('release')
+    File.open('REVISION', 'w') { |f| f.puts '(release)' }
+  else
+    File.open('REVISION', 'w') { |f| f.puts '(unknown)' }
+  end
 end
+Rake::Task[:package].prerequisites.insert(0, :revision_file)
+
+# We also need to get rid of this file after packaging.
+at_exit { File.delete('REVISION') rescue nil }
+
 
 task :install => [:package] do
-  `gem install --no-ri pkg/email-veracity-#{File.read('VERSION').strip}`
+  sudo = RUBY_PLATFORM =~ /win32/ ? '' : 'sudo'
+  `#{sudo} gem install --no-ri pkg/email-veracity-#{File.read('VERSION').strip}`
 end
 
 
-# Documentation
-rdoc_task = Proc.new do |rdoc|
-  rdoc.title = 'Email Veracity'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+task :release => [:package] do
+  name, version = ENV['NAME'], ENV['VERSION']
+  raise "Must supply NAME and VERSION for release task." unless name && version
+  `rubyforge login`
+  `rubyforge add_release email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.gem`
+  `rubyforge add_file    email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.tar.gz`
+  `rubyforge add_file    email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.tar.bz2`
+  `rubyforge add_file    email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.zip`
 end
+
+
+
+### Documentation
+require 'rake/rdoctask'
 
 Rake::RDocTask.new do |rdoc|
-  rdoc_task.call(rdoc)
+  rdoc.title    = 'Email Veracity'
+  rdoc.options << '--line-numbers' << '--inline-source'
+  rdoc.rdoc_files.include(*FileList.new('*') do |list|
+                            list.exclude(/(^|[^.a-z])[a-z]+/)
+                            list.exclude('TODO')
+                          end.to_a)
+  rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_files.exclude('TODO')
   rdoc.rdoc_dir = 'rdoc'
+  rdoc.main = 'README.rdoc'
+end
+
+
+
+### Coverage
+require 'rcov/rcovtask'
+
+Rcov::RcovTask.new do |t|
+  t.test_files = FileList['test/**/*_test.rb']
+  t.rcov_opts << '-x' << '"^\/"'
+  if ENV['NON_NATIVE']
+    t.rcov_opts << "--no-rcovrt"
+  end
+  t.verbose = true
 end

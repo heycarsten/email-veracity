@@ -1,4 +1,5 @@
 .autotest
 .DS_Store
+/coverage
 /pkg
 /rdoc
