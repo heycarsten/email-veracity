@@ -24,26 +24,28 @@ addresses.
 In your project, you must require +email_veracity+ after that you can try it
 out, consider the following examples:
 
-  require 'email_veracity'
-  
-  address = EmailVeracity::Address.new('heycarsten@gmail.com')
-  
-  address.valid?
-  # => true
-  
-  address.domain.to_s
-  # => 'gmail.com'
-  
-  address.domain.address_servers.collect { |s| s.to_s }
-  # => ["64.233.171.83", "64.233.161.83", "209.85.171.83"]
-  
-  address = EmailVeracity::Address.new('fakey@crazy-z3d9df-domain.com')
-  
-  address.valid?
-  # => false
-  
-  address.errors
-  # => [:no_address_servers]
+ 
+ require 'email_veracity'
+ 
+ address = EmailVeracity::Address.new('heycarsten@gmail.com')
+ 
+ address.valid?
+ # => true
+ 
+ address.domain.to_s
+ # => 'gmail.com'
+ 
+ address.domain.address_servers.collect { |s| s.to_s }
+ # => ["64.233.171.83", "64.233.161.83", "209.85.171.83"]
+ 
+ address = EmailVeracity::Address.new('fakey@crazy-z3d9df-domain.com')
+ 
+ address.valid?
+ # => false
+ 
+ address.errors
+ # => [:no_address_servers]
+ 
 
 As you can see, playing with the core library is pretty fun.  The basic building
 blocks are:
