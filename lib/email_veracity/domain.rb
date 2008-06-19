@@ -41,6 +41,10 @@ module EmailVeracity
       @exchange_servers ||= servers_in(:mx)
     end
 
+    def servers
+      address_servers + exchange_servers
+    end
+
     protected
       def validate!
         return if whitelisted?
@@ -54,7 +58,7 @@ module EmailVeracity
 
       def servers_in(record)
         return [] if name.blank?
-        Resolver.get_servers_for(name, :in => record)
+        Resolver.get_servers_for(name, record)
        rescue DomainResourcesTimeoutError
         add_error :timed_out
       end

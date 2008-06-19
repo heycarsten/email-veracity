@@ -3,19 +3,18 @@ module EmailVeracity
 
   class Server
 
-    attr_accessor :name
-    attr_accessor :type
+    attr_reader :name
+    alias_method :to_s, :name
 
-    def initialize(name = '', type = nil)
+    def initialize(name = '')
       @name = name
-      @type = type
-    end
-
-    def to_s
-      name
     end
 
   end
+
+
+  class AddressServer < Server; end
+  class ExchangeServer < Server; end
 
 
 end

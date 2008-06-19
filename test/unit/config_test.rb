@@ -33,6 +33,18 @@ class ConfigTest < Test::Unit::TestCase
       'Should not check for MX records be default'
   end
 
+  def test_changing_and_reverting_configuration
+    EmailVeracity::Config.update(:lookup => false, :timeout => 3)
+    assert_equal false, EmailVeracity::Config[:lookup],
+      'Should change configuration.'
+    assert_equal 3, EmailVeracity::Config[:timeout]
+      'Should change configuration.'
+    EmailVeracity::Config.revert!
+    assert_equal EmailVeracity::Config::DEFAULT_OPTIONS,
+      EmailVeracity::Config.options,
+      'Should revert configuration'
+  end
+
 end
 
 
