@@ -1,3 +1,5 @@
+require 'rake'
+
 EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
   s.name = 'email-veracity'
   s.version = File.read('VERSION').strip
@@ -17,7 +19,7 @@ EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
     list.include('REVISION')
   end.to_a
   s.files = FileList['lib/**/*', 'test/**/*', 'Rakefile', 'init.rb'].to_a + readmes
-  s.homepage = 'http://heycarsten.com/projects/email-veracity'
+  s.homepage = 'http://github.com/heycarsten/email-veracity'
   s.has_rdoc = true
   s.extra_rdoc_files = readmes
   s.rdoc_options += [
