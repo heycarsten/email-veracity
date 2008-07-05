@@ -1,4 +1,5 @@
 require 'rake'
+require 'rubygems'
 
 EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
   s.name = 'email-veracity'
