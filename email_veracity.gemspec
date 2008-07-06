@@ -32,7 +32,6 @@ EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
     '--main', 'README.rdoc',
     '--line-numbers',
     '--inline-source']
-  s.rubygems
   s.test_files = [
     'test/mocks/class_with_validation_mock.rb',
     'test/test_helper.rb',
