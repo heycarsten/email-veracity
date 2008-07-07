@@ -22,6 +22,7 @@ EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
     'lib/email_veracity/validatability.rb',
     'lib/email_veracity.rb',
     'README.rdoc',
+    'VERSION',
     'Rakefile',
     'init.rb']
   s.homepage = 'http://github.com/heycarsten/email-veracity'
