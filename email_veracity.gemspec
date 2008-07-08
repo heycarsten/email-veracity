@@ -3,13 +3,10 @@ EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
   s.version = File.read('VERSION').strip
   s.authors = ['Carsten Nielsen']
   s.email = 'heycarsten@gmail.com'
-  s.summary = 'A straight-forward Ruby library for checking the real-world validity of email addresses.'
+  s.summary = 'A simple library for checking the real-world validity of email addresses.'
   s.description = %|
     Email Veracity abstracts an email address into a series of objects which makes
     it easy to see if an address is invalid, and if so, why.|
-  # We need the revision file to exist,
-  # so we just create it if it doesn't.
-  # It'll usually just get overwritten, though.
   File.open('REVISION', 'w') { |f| f.puts '(unknown)' } unless File.exist?('REVISION')
   s.files = [
     'lib/email_veracity/address.rb',
