@@ -1,13 +1,12 @@
 EMAIL_VERACITY_GEMSPEC = Gem::Specification.new do |s|
   s.name = 'email-veracity'
-  s.version = File.read('VERSION').strip
+  s.version = '0.3.0'
   s.authors = ['Carsten Nielsen']
   s.email = 'heycarsten@gmail.com'
   s.summary = 'A simple library for checking the real-world validity of email addresses.'
   s.description = %|
     Email Veracity abstracts an email address into a series of objects which makes
     it easy to see if an address is invalid, and if so, why.|
-  File.open('REVISION', 'w') { |f| f.puts '(unknown)' } unless File.exist?('REVISION')
   s.files = [
     'lib/email_veracity/address.rb',
     'lib/email_veracity/config.rb',
