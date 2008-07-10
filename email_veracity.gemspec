@@ -13,7 +13,6 @@ EV_GEMSPEC = Gem::Specification.new do |s|
     lib/email_veracity/config.rb
     lib/email_veracity/core_extensions.rb
     lib/email_veracity/domain.rb
-    lib/email_veracity/errors.rb
     lib/email_veracity/resolver.rb
     lib/email_veracity/server.rb
     lib/email_veracity/validatability.rb
