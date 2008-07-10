@@ -17,8 +17,8 @@ end
 
 ### Packaging
 require 'rake/gempackagetask'
-load    'email_veracity.gemspec'
-Rake::GemPackageTask.new(EMAIL_VERACITY_GEMSPEC) do |pkg|
+load 'email_veracity.gemspec'
+Rake::GemPackageTask.new(EV_GEMSPEC) do |pkg|
   if Rake.application.top_level_tasks.include?('release')
     pkg.need_tar_gz = true
     pkg.need_tar_bz2 = true
@@ -27,26 +27,9 @@ Rake::GemPackageTask.new(EMAIL_VERACITY_GEMSPEC) do |pkg|
 end
 
 
-task :revision_file do
-  require 'lib/email_veracity'
-
-  if EmailVeracity.version[:rev] && !Rake.application.top_level_tasks.include?('release')
-    File.open('REVISION', 'w') { |f| f.puts EmailVeracity.version[:rev] }
-  elsif Rake.application.top_level_tasks.include?('release')
-    File.open('REVISION', 'w') { |f| f.puts '(release)' }
-  else
-    File.open('REVISION', 'w') { |f| f.puts '(unknown)' }
-  end
-end
-Rake::Task[:package].prerequisites.insert(0, :revision_file)
-
-# We also need to get rid of this file after packaging.
-at_exit { File.delete('REVISION') rescue nil }
-
-
 task :install => [:package] do
   sudo = RUBY_PLATFORM =~ /win32/ ? '' : 'sudo'
-  `#{sudo} gem install --no-ri pkg/email-veracity-#{File.read('VERSION').strip}`
+  `#{sudo} gem install --no-ri pkg/email-veracity-#{EV_VERSION}`
 end
 
 

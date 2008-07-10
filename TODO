@@ -1,4 +1,3 @@
-* Get this core gem production ready.
 * Document everything once the API is stable.
 * Create ActiveRecord and Validatable (DataMapper) plugins.
 * Structure things properly so that it is possible to run tests without a

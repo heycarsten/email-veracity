@@ -1,4 +1,4 @@
-.autotest
+*.tmproj
 .DS_Store
 /coverage
 /pkg
