@@ -1,5 +1,7 @@
+require 'rubygems'
 require 'test/unit'
-require 'lib/email_veracity'
+require 'mocha'
+require File.dirname(__FILE__) + '/../lib/email_veracity'
 Dir.glob('test/mocks/*.rb') { |f| require(f) }
 
 

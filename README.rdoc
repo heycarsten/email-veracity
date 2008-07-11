@@ -63,10 +63,3 @@ Contains methods to query the domain for information.
 
 Abstracts Resolv::DNS into a super-simple single public method, this is where
 the timeout error is raised.
-
-
-== Running The Tests
-
-A few of the tests will fail if you don't have a live connection to the
-internet, this is obviously not cool and it's high on my list of TODOs. [See
-TODO]
