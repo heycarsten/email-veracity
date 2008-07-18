@@ -1,4 +1,4 @@
-EV_VERSION = '0.3.0'
+EV_VERSION = '0.3.1'
 EV_GEMSPEC = Gem::Specification.new do |s|
   s.name = 'email-veracity'
   s.version = EV_VERSION
@@ -28,5 +28,14 @@ EV_GEMSPEC = Gem::Specification.new do |s|
     '--main', 'README.rdoc',
     '--line-numbers',
     '--inline-source']
-  s.test_files = Dir.glob('test/*.rb')
+  s.test_files = %w[
+    test/mocks/class_with_validation_mock.rb
+    test/test_helper.rb
+    test/unit/address_test.rb
+    test/unit/config_test.rb
+    test/unit/core_extensions_test.rb
+    test/unit/domain_test.rb
+    test/unit/resolver_test.rb
+    test/unit/server_test.rb
+    test/unit/validatability_test.rb ]
 end
