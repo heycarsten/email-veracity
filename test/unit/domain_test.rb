@@ -34,46 +34,44 @@ class DomainTest < Test::Unit::TestCase
   def test_a_valid_domain_for_address_servers
     domain_name = 'gmail.com'
     domain = new_domain(domain_name)
-    EmailVeracity::Resolver.expects(:get_servers_for).with(domain_name.strip, :a).returns(["mail.#{domain_name}"])
-    
+    EmailVeracity::Resolver.expects(:get_servers_for).
+      with(domain_name.strip, :a).returns(["mail.#{domain_name}"])
     assert_not_empty domain.address_servers, 'Should contain address servers.'
   end
 
   def test_a_valid_domain_for_exchange_servers
     domain_name = 'gmail.com'
     domain = new_domain(domain_name)
-    EmailVeracity::Resolver.expects(:get_servers_for).with(domain_name.strip, :mx).returns(["mail.#{domain_name}"])
-    
+    EmailVeracity::Resolver.expects(:get_servers_for).
+      with(domain_name.strip, :mx).returns(["mail.#{domain_name}"])
     assert_not_empty domain.exchange_servers, 'Should contain mail servers.'
   end
 
   def test_a_valid_domain_with_whitespace_for_address_servers
     domain_with_whitespace = '  learnhub.com  '
     domain = new_domain(domain_with_whitespace)
-    EmailVeracity::Resolver.expects(:get_servers_for).with(domain_with_whitespace.strip, :a).returns(%w(mail.learnhub.com))
-    
+    EmailVeracity::Resolver.expects(:get_servers_for).
+      with(domain_with_whitespace.strip, :a).returns(%w(mail.learnhub.com))
     assert_not_empty domain.address_servers, 'Should contain address servers.'
   end
 
   def test_a_valid_domain_with_whitespace_for_exchange_servers
     domain_with_whitespace = '  learnhub.com  '
     domain = new_domain(domain_with_whitespace)
-    EmailVeracity::Resolver.expects(:get_servers_for).with(domain_with_whitespace.strip, :mx).returns(%w(mail.learnhub.com))
-    
+    EmailVeracity::Resolver.expects(:get_servers_for).
+      with(domain_with_whitespace.strip, :mx).returns(%w(mail.learnhub.com))
     assert_not_empty domain.exchange_servers, 'Should contain address servers.'
   end
 
   def test_an_invalid_domain_for_address_servers
     domain = new_domain('i-surely-do-not.exist')
     domain.expects(:servers_in).with(:a).returns([])
-
     assert_empty domain.address_servers, 'Should not contain address servers.'
   end
   
   def test_an_invalid_domain_for_exchange_servers
     domain = new_domain('i-surely-do-not.exist')
     domain.expects(:servers_in).with(:mx).returns([])
-    
     assert_empty domain.exchange_servers, 'Should not contain exchange servers.'
   end
 
@@ -92,7 +90,6 @@ class DomainTest < Test::Unit::TestCase
     domain = new_domain('i-surely-do-not.exist')
     domain.expects(:address_servers).returns([])
     domain.expects(:exchange_servers).returns([])
-    
     assert_not_empty domain.errors, 'Should have errors.'
   end
 

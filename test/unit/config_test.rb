@@ -95,6 +95,10 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       ungültige@adresse.de
       failure@10.0.0.1
       douche@@bag.net
+      -@fail.org
+      _@fail.org
+      +_-@fail.die
+      +___--@crashburn.net
     ].each do |address|
       assert_no_match EmailVeracity::Config[:valid_pattern],
         address,

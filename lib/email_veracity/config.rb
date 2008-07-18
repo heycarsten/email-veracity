@@ -8,7 +8,8 @@ module EmailVeracity
         rogers.com sympatico.ca yahoo.com telus.com sprint.com sprint.ca ],
       :blacklist => %w[ dodgeit.com mintemail.com mintemail.uni.cc
         1mintemail.mooo.com spammotel.com trashmail.net ],
-      :valid_pattern => /\A(([\d\w\+_\-\.]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})){1}\Z/i,
+      :valid_pattern =>
+        /\A(([\w]+[\w\+_\-\.]+[\+_\-\.]{0})@((?:[-a-z0-9]+\.)+[a-z]{2,})){1}\Z/i,
       :timeout => 2,
       :lookup => [:a],
       :enforce_blacklist => false,
