@@ -8,6 +8,7 @@ EV_GEMSPEC = Gem::Specification.new do |s|
   s.description = 'Email Veracity abstracts an email address into a series of objects which makes it easy to see if an address is invalid, and if so, why.'
   s.homepage = 'http://github.com/heycarsten/email-veracity'
   s.rubyforge_project = 'email-veracity'
+  s.has_rdoc = false
   s.files = %w[
     lib/email_veracity/address.rb
     lib/email_veracity/config.rb
@@ -17,17 +18,10 @@ EV_GEMSPEC = Gem::Specification.new do |s|
     lib/email_veracity/server.rb
     lib/email_veracity/validatability.rb
     lib/email_veracity.rb
-    README.rdoc
+    README.markdown
     LICENSE
     Rakefile
     init.rb ]
-  s.has_rdoc = true
-  s.extra_rdoc_files = %w[ README.rdoc ]
-  s.rdoc_options += [
-    '--title', 'Email Veracity',
-    '--main', 'README.rdoc',
-    '--line-numbers',
-    '--inline-source']
   s.test_files = %w[
     test/mocks/class_with_validation_mock.rb
     test/test_helper.rb
