@@ -1,5 +1,0 @@
-* Create validator classes that will handle the actual validation of addresses
-  and domains. This will eliminate the need for a mixin and should really
-  simplify things.
-* Document everything once the API is stable.
-* Create ActiveRecord and Validatable (DataMapper) plugins.

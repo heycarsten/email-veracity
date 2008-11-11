@@ -1,4 +1,3 @@
-# I used Haml as a template for these tasks: Thank you Nex3!
 require 'rubygems'
 require 'rake'
 
@@ -31,36 +30,6 @@ task :install => [:package] do
   sudo = RUBY_PLATFORM =~ /win32/ ? '' : 'sudo'
   `#{sudo} gem install --no-ri pkg/email-veracity-#{EV_VERSION}`
 end
-
-
-task :release => [:package] do
-  name, version = ENV['NAME'], ENV['VERSION']
-  raise "Must supply NAME and VERSION for release task." unless name && version
-  `rubyforge login`
-  `rubyforge add_release email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.gem`
-  `rubyforge add_file    email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.tar.gz`
-  `rubyforge add_file    email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.tar.bz2`
-  `rubyforge add_file    email-veracity email-veracity "#{name} (v#{version})" pkg/email-veracity-#{version}.zip`
-end
-
-
-
-### Documentation
-require 'rake/rdoctask'
-
-Rake::RDocTask.new do |rdoc|
-  rdoc.title    = 'Email Veracity'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include(*FileList.new('*') do |list|
-                            list.exclude(/(^|[^.a-z])[a-z]+/)
-                            list.exclude('TODO')
-                          end.to_a)
-  rdoc.rdoc_files.include('lib/**/*.rb')
-  rdoc.rdoc_files.exclude('TODO')
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.main = 'README.rdoc'
-end
-
 
 
 ### Coverage
