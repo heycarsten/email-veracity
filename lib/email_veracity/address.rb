@@ -18,7 +18,7 @@ module EmailVeracity
     end
 
     def email_address=(new_email_address)
-      @email_address = new_email_address
+      @email_address = new_email_address.to_s
       @domain = Domain.new(@email_address.split('@')[1] || '')
     end
 

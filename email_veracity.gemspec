@@ -1,4 +1,4 @@
-EV_VERSION = '0.3.2'
+EV_VERSION = '0.3.3'
 EV_GEMSPEC = Gem::Specification.new do |s|
   s.name = 'email-veracity'
   s.version = EV_VERSION

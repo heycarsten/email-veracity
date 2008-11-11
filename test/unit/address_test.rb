@@ -17,6 +17,11 @@ end
 
 class DefaultConfigurationAddressValidationsTest < Test::Unit::TestCase
 
+  def test_a_nil_address_argument
+    address = new_address(nil)
+    assert !address.valid?, 'Should be invalid.'
+  end
+
   def test_a_well_formed_address_with_a_whitelisted_domain
     address = new_address('heycarsten@gmail.com')
     assert address.valid?,
