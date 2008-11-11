@@ -13,7 +13,6 @@ Rake::TestTask.new do |t|
 end
 
 
-
 ### Packaging
 require 'rake/gempackagetask'
 load 'email_veracity.gemspec'

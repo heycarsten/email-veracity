@@ -1,6 +1,5 @@
 module EmailVeracity
 
-
   class ::Array
 
     def reject_blank_items
@@ -22,6 +21,5 @@ module EmailVeracity
     end
 
   end
-
 
 end

@@ -1,6 +1,4 @@
 module EmailVeracity
-
-
   class Config
 
     DEFAULT_OPTIONS = {
@@ -52,6 +50,4 @@ module EmailVeracity
     end
 
   end
-
-
 end

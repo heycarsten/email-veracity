@@ -1,6 +1,4 @@
 module EmailVeracity
-
-
   class Address
 
     include Validatability
@@ -25,17 +23,16 @@ module EmailVeracity
     end
 
     protected
-      def validate!
-        add_error(:malformed) if !pattern_valid?
-        return unless Config[:lookup]
-        add_errors(domain.errors)
-      end
 
-      def pattern_valid?
-        @email_address =~ Config[:valid_pattern]
-      end
+    def validate!
+      add_error(:malformed) if !pattern_valid?
+      return unless Config[:lookup]
+      add_errors(domain.errors)
+    end
+
+    def pattern_valid?
+      @email_address =~ Config[:valid_pattern]
+    end
 
   end
-
-
 end

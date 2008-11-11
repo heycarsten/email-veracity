@@ -1,6 +1,4 @@
 module EmailVeracity
-
-
   class Resolver
 
     RECORD_NAMES_TO_RESOLVE_MAP = {
@@ -26,21 +24,20 @@ module EmailVeracity
     end
 
     protected
-      def Resolver.get_resources_for(domain_name, record = :a)
-        Resolv::DNS.open do |server|
-          record_map = RECORD_NAMES_TO_RESOLVE_MAP[record]
-          resources = server.getresources(domain_name, record_map[:constant])
-          resources_to_servers(resources, record_map[:method])
-        end
-      end
 
-      def Resolver.resources_to_servers(resources, resolve_method)
-        resources.inject([]) do |array, resource|
-          array << resource.method(resolve_method).call.to_s.strip
-        end.reject_blank_items
+    def Resolver.get_resources_for(domain_name, record = :a)
+      Resolv::DNS.open do |server|
+        record_map = RECORD_NAMES_TO_RESOLVE_MAP[record]
+        resources = server.getresources(domain_name, record_map[:constant])
+        resources_to_servers(resources, record_map[:method])
       end
+    end
+
+    def Resolver.resources_to_servers(resources, resolve_method)
+      resources.inject([]) do |array, resource|
+        array << resource.method(resolve_method).call.to_s.strip
+      end.reject_blank_items
+    end
 
   end
-
-
 end

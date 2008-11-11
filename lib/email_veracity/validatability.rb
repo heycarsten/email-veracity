@@ -1,6 +1,4 @@
 module EmailVeracity
-
-
   module Validatability
 
     def valid?
@@ -14,21 +12,20 @@ module EmailVeracity
     end
 
     protected
-      def validate!
-        # Adds errors to the object.
-      end
 
-      def clear_errors!
-        @errors = []
-      end
+    def validate!
+      # Adds errors to the object.
+    end
 
-      def add_error(*new_errors)
-        @errors ||= []
-        @errors.concat(new_errors.flatten)
-      end
-      alias_method :add_errors, :add_error
+    def clear_errors!
+      @errors = []
+    end
+
+    def add_error(*new_errors)
+      @errors ||= []
+      @errors.concat(new_errors.flatten)
+    end
+    alias_method :add_errors, :add_error
 
   end
-
-
 end

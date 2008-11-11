@@ -44,8 +44,9 @@ class DefaultConfigurationAddressValidationsTest < Test::Unit::TestCase
   end
 
   private
-    def new_address(address = '')
-      EmailVeracity::Address.new(address)
-    end
+
+  def new_address(address = '')
+    EmailVeracity::Address.new(address)
+  end
 
 end

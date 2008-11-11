@@ -94,8 +94,9 @@ class DomainTest < Test::Unit::TestCase
   end
 
   private
-    def new_domain(name = 'heycarsten.com')
-      EmailVeracity::Domain.new(name)
-    end
+
+  def new_domain(name = 'heycarsten.com')
+    EmailVeracity::Domain.new(name)
+  end
 
 end

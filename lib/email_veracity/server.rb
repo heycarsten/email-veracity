@@ -1,6 +1,5 @@
 module EmailVeracity
 
-
   class Server
 
     attr_reader :name
@@ -15,6 +14,5 @@ module EmailVeracity
 
   class AddressServer < Server; end
   class ExchangeServer < Server; end
-
 
 end
