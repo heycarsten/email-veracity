@@ -20,6 +20,14 @@ addresses.
    specification.
 
 
+A Note About The ActiveRecord Plugin
+------------------------------------
+
+**It's dead!** Why? Determining the validity of an email address based on a lookup of its domain a good idea, but basing it off of one single test done inline with a request is not. A name server might be down, shit happens, and you might be snubbing a totally legitimate person from using your product -- not good.
+
+I feel a better solution is to check the pattern of the email address and perhaps check it against the blacklist on creation. The other tests should be done in the background over the period of many days and be added to a log. A report can then be performed and you can statistically determine the addresses that are most likely false and take appropriate action from that point. 
+
+
 Using The Gem
 -------------
 
@@ -37,7 +45,7 @@ out, consider the following examples:
     address.domain.to_s
     # => 'gmail.com'
     
-    address.domain.address_servers.collect { |s| s.to_s }
+    address.domain.address_servers.map { |s| s.to_s }
     # => ["64.233.171.83", "64.233.161.83", "209.85.171.83"]
     
     address = EmailVeracity::Address.new('fakey@crazy-z3d9df-domain.com')
