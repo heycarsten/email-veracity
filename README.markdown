@@ -23,7 +23,7 @@ addresses.
 A Note About The ActiveRecord Plugin
 ------------------------------------
 
-**It's dead!** Why? Determining the validity of an email address based on a lookup of its domain a good idea, but basing it off of one single test done inline with a request is not. A name server might be down, shit happens, and you might be snubbing a totally legitimate person from using your product &mdash; not good.
+**It's dead!** Why? Determining the validity of an email address based on a lookup of its domain is a good idea, but basing it off of one single test done inline with a request is not. A name server might be down, shit happens, and you might be snubbing a totally legitimate person from using your product &mdash; not good.
 
 I feel a better solution is to check the pattern of the email address and perhaps check it against the blacklist on creation. The other tests should be done in the background over the period of many days and be added to a log. A report can then be performed and you can statistically determine the addresses that are most likely false and take appropriate action from that point. 
 
