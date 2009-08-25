@@ -58,10 +58,10 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
   def test_valid_email_addresses
     %w[
       goto@rubyfringe.ca
-      stuff+heyd00d@gmail.com
+      heyd00d+stuff@gmail.com
       carsten_nielsen@gmail.com
       carsten-nielsen@gmail.com
-      iwenttowestern@ivyleague.ca
+      goodoldemail@address.ca
       old-skool@mail.mysite.on.ca
       heycarsten@del.icio.us
       nex3@haml.town
@@ -70,6 +70,8 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       sweetCandy4@me-and-you.ca
       jesus@god.com
       neat@b.eat
+      i@shouldwork.com
+      1@shouldworktoo.com
     ].each do |address|
       assert_match EmailVeracity::Config[:valid_pattern],
         address,
@@ -95,6 +97,7 @@ class DefaultValidAddressPatternTest < Test::Unit::TestCase
       ungültige@adresse.de
       failure@10.0.0.1
       douche@@bag.net
+      .@fail.net
       -@fail.org
       _@fail.org
       +_-@fail.die
