@@ -1,5 +1,5 @@
 module EmailVeracity
-  class Resolver
+  module Resolver
 
     RECORD_NAMES_TO_RESOLVE_MAP = {
       :a => {
@@ -11,9 +11,9 @@ module EmailVeracity
         :type => ExchangeServer,
         :constant => Resolv::DNS::Resource::IN::MX } }
 
-    def Resolver.get_servers_for(domain_name, record = :a)
+    def get_servers_for(domain_name, record = :a)
       Timeout::timeout(Config[:timeout]) do
-        get_resources_for(domain_name, record).collect do |server_name|
+        get_resources_for(domain_name, record).map do |server_name|
           type = RECORD_NAMES_TO_RESOLVE_MAP[record.to_sym][:type]
           type.new(server_name)
         end
@@ -25,7 +25,7 @@ module EmailVeracity
 
     protected
 
-    def Resolver.get_resources_for(domain_name, record = :a)
+    def get_resources_for(domain_name, record = :a)
       Resolv::DNS.open do |server|
         record_map = RECORD_NAMES_TO_RESOLVE_MAP[record]
         resources = server.getresources(domain_name, record_map[:constant])
@@ -33,11 +33,13 @@ module EmailVeracity
       end
     end
 
-    def Resolver.resources_to_servers(resources, resolve_method)
+    def resources_to_servers(resources, resolve_method)
       resources.inject([]) do |array, resource|
         array << resource.method(resolve_method).call.to_s.strip
-      end.reject_blank_items
+      end.reject { |i| Utils.blank?(i) }
     end
+
+    module_function :get_servers_for, :get_resources_for, :resources_to_servers
 
   end
 end

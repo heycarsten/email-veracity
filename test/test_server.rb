@@ -1,7 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'helper'
 
-
-class ServerTest < Test::Unit::TestCase
+class TestServer < Test::Unit::TestCase
 
   def test_creating_a_new_blank_server_object
     new_server = EmailVeracity::Server.new

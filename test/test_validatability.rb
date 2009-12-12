@@ -1,7 +1,6 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'helper'
 
-
-class ValidatabilityTest < Test::Unit::TestCase
+class TestValidatability < Test::Unit::TestCase
 
   def test_includes_proper_methods
     %w[ valid? validate! clear_errors! add_error errors ].each do |method_name|

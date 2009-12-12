@@ -1,17 +1,34 @@
 require 'rubygems'
 require 'test/unit'
+require 'shoulda'
 require 'mocha'
-require File.dirname(__FILE__) + '/../lib/email_veracity'
-Dir.glob('test/mocks/*.rb') { |f| require(f) }
+require 'redgreen'
+
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+
+require 'email_veracity'
+
+
+class ClassWithValidationMock
+
+  include EmailVeracity::Validatability
+
+  attr_accessor :give_error
+  attr_accessor :give_errors
+  attr_accessor :give_array_of_errors
+
+  def validate!
+    add_error(:one) if give_error
+    add_errors(:two, :three) if give_errors
+    add_errors([:four, :five]) if give_array_of_errors
+    add_errors []
+  end
+
+end
 
 
 class Test::Unit::TestCase
-
-  def domain_names
-    %w[ viarails.net heycarsten.com yahoo.com gmail.com savvica.com
-      learnhub.com github.com google.com rogers.com amd.com adobe.com
-      unspace.ca xerox.com webkit.org cooltown.net aiderss.com delicious.com ]
-  end
 
   def assert_empty(array, message = nil)
     unless array.is_a?(Array)
