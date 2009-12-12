@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = 'email-veracity'
+    gem.name = 'email_veracity'
     gem.summary = 'A simple library for checking the real-world validity of email addresses.'
     gem.description = 'Email Veracity abstracts an email address into a series of objects which makes it easy to see if an address is invalid, and if so, why.'
     gem.email = 'heycarsten@gmail.com'

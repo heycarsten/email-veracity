@@ -4,7 +4,7 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{email-veracity}
+  s.name = %q{email_veracity}
   s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
@@ -19,14 +19,25 @@ Gem::Specification.new do |s|
   s.files = [
     ".gitignore",
      "LICENSE",
+     "README.md",
      "Rakefile",
+     "VERSION",
      "lib/email_veracity.rb",
      "lib/email_veracity/address.rb",
      "lib/email_veracity/config.rb",
      "lib/email_veracity/domain.rb",
      "lib/email_veracity/resolver.rb",
      "lib/email_veracity/server.rb",
-     "lib/email_veracity/validatability.rb"
+     "lib/email_veracity/utils.rb",
+     "lib/email_veracity/validatability.rb",
+     "test/helper.rb",
+     "test/test_address.rb",
+     "test/test_config.rb",
+     "test/test_domain.rb",
+     "test/test_resolver.rb",
+     "test/test_server.rb",
+     "test/test_utils.rb",
+     "test/test_validatability.rb"
   ]
   s.homepage = %q{http://github.com/heycarsten/email-veracity}
   s.rdoc_options = ["--charset=UTF-8"]
