@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
      "README.md",
      "Rakefile",
      "VERSION",
+     "email_veracity.gemspec",
      "lib/email_veracity.rb",
      "lib/email_veracity/address.rb",
      "lib/email_veracity/config.rb",
