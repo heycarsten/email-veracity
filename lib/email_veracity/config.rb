@@ -2,10 +2,26 @@ module EmailVeracity
   module Config
 
     DEFAULT_OPTIONS = {
-      :whitelist => %w[ aol.com gmail.com hotmail.com mac.com msn.com
-        rogers.com sympatico.ca yahoo.com telus.com sprint.com sprint.ca ],
-      :blacklist => %w[ dodgeit.com mintemail.com mintemail.uni.cc
-        1mintemail.mooo.com spammotel.com trashmail.net ],
+      :whitelist => %w[
+        aol.com
+        gmail.com
+        hotmail.com
+        me.com
+        mac.com
+        msn.com
+        rogers.com
+        sympatico.ca
+        yahoo.com
+        telus.com
+        sprint.com
+        sprint.ca ],
+      :blacklist => %w[
+        dodgeit.com
+        mintemail.com
+        mintemail.uni.cc
+        1mintemail.mooo.com
+        spammotel.com
+        trashmail.net ],
       :valid_pattern => %r{\A
         (
           (
@@ -25,6 +41,7 @@ module EmailVeracity
       \Z}xi,
       :must_include => [], # :a, :mx
       :timeout => 2,
+      :skip_lookup => false,
       :enforce_blacklist => false,
       :enforce_whitelist => true }
     @options = DEFAULT_OPTIONS.clone

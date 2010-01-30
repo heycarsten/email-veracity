@@ -4,8 +4,8 @@ require 'shoulda'
 require 'mocha'
 require 'redgreen'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$:.unshift(File.dirname(__FILE__))
 
 require 'email_veracity'
 

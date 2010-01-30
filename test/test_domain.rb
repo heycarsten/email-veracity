@@ -51,7 +51,7 @@ class TestDomain < Test::Unit::TestCase
     domain.expects(:servers_in).with(:a).returns([])
     assert_empty domain.address_servers, 'Should not contain address servers.'
   end
-  
+
   def test_an_invalid_domain_for_exchange_servers
     domain = new_domain('i-surely-do-not.exist')
     domain.expects(:servers_in).with(:mx).returns([])
@@ -82,6 +82,26 @@ class TestDomain < Test::Unit::TestCase
 
     should 'indicate the appropriate error' do
       assert @domain.errors.include?(:no_records)
+    end
+  end
+
+  context 'A domain validation when Config[:skip_lookup] is set' do
+    setup do
+      EmailVeracity::Config[:skip_lookup] = true
+      @domain = new_domain('heycarsten.com')
+      @domain.stubs(:address_servers).returns([:something])
+    end
+
+    should 'not perform any lookups for validations' do
+      assert @domain.errors.empty?
+    end
+
+    should 'still allow explicit lookups' do
+      assert @domain.address_servers.any?
+    end
+
+    teardown do
+      EmailVeracity::Config.revert!
     end
   end
 

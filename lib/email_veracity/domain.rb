@@ -49,17 +49,19 @@ module EmailVeracity
       return if whitelisted?
       add_error(:blacklisted) if blacklisted? &&
         Config[:enforce_blacklist]
-      add_error(:no_records) if servers.empty? &&
-        !Config.enforced_record?(:a) &&
-        !Config.enforced_record?(:mx)
-      add_error(:no_address_servers) if address_servers.empty? &&
-        Config.enforced_record?(:a)
-      add_error(:no_exchange_servers) if exchange_servers.empty? &&
-        Config.enforced_record?(:mx)
+      unless Config[:skip_lookup]
+        add_error(:no_records) if servers.empty? &&
+          !Config.enforced_record?(:a) &&
+          !Config.enforced_record?(:mx)
+        add_error(:no_address_servers) if address_servers.empty? &&
+          Config.enforced_record?(:a)
+        add_error(:no_exchange_servers) if exchange_servers.empty? &&
+          Config.enforced_record?(:mx)
+      end
     end
 
     def servers_in(record)
-      return [] if Utils.blank?(name)
+      return [] if Config[:skip_lookup] || Utils.blank?(name)
       Resolver.get_servers_for(name, record)
      rescue DomainResourcesTimeoutError
       add_error :timed_out

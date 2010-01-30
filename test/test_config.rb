@@ -20,6 +20,7 @@ class TestConfig < Test::Unit::TestCase
     i@shouldwork.com
     1@shouldworktoo.com ]
   INVALID_EMAIL_ADDRESS_EXAMPLES = %w[
+    two@email.com\ addresses@example.com
     @failure.net
     craptastic@
     !!!!!@gmail.com
