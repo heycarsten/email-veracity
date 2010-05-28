@@ -1,3 +1,5 @@
+# coding: utf-8
+
 require 'helper'
 
 class TestConfig < Test::Unit::TestCase
@@ -15,33 +17,33 @@ class TestConfig < Test::Unit::TestCase
     1234@aplace.com
     carsten2@happyland.net
     sweetCandy4@me-and-you.ca
+    technically.accurate@10.0.0.1
     simple@example.com
+    -@iamdash.net
+    _@underscoreface.com
     neat@b.eat
+    &^%$#$%@yojimbo.nil
     i@shouldwork.com
+    this+should+not+work+but+it+does+because+the+internet+told+me+to%20@dot.com
+    +_-@justaccepteverything.ca
+    $oRight@example.com
+    !!!!!@gmail.com
+    this!is.actually.ok@comtown.com
     1@shouldworktoo.com ]
   INVALID_EMAIL_ADDRESS_EXAMPLES = %w[
     two@email.com\ addresses@example.com
     @failure.net
     craptastic@
-    !!!!!@gmail.com
     oh-noez@f4iL/\/\@il.net
+    fail..horribly@org.net
     someone@somewhere
-    this!fails@comtown.com
-    $oWrong@fail.net
     charles\ babbage@gmail.com
     ,@crap.com
-    dis%20blos@dot.com
-    &^%$#$%@yojimbo.nil
     "greetings\ friend"@comtastic.dk
     this,fails@ice-t.com
     ungültige@adresse.de
-    failure@10.0.0.1
-    douche@@bag.net
-    .@fail.net
-    -@fail.org
-    _@fail.org
-    +_-@fail.die
-    +___--@crashburn.net ]
+    iamat@@at.net
+    .@fail.net ]
 
   context 'Default email pattern' do
     should 'match valid addresses' do

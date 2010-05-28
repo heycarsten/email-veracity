@@ -22,24 +22,44 @@ module EmailVeracity
         1mintemail.mooo.com
         spammotel.com
         trashmail.net ],
-      :valid_pattern => %r{\A
+      :valid_pattern => %r{
+        ^
+        (
+          [\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+
+          \.
+        )
+        *
+        [\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+
+        @
         (
           (
-            [a-z0-1]{1}
-            |
-            [\w]+[\w\+_\-\.]+
-            [\+_\-\.]{0}
-          )
-          @
-          (
-            (?:
-              [-a-z0-9]+\.
+            (
+              (
+                (
+                  [a-z0-9]{1}
+                  [a-z0-9\-]{0,62}
+                  [a-z0-9]{1}
+                )
+                |
+                [a-z]
+              )
+              \.
             )+
-            [a-z]{2,}
+            [a-z]{2,6}
           )
-        ){1}
-      \Z}xi,
-      :must_include => [], # :a, :mx
+          |
+          (
+            \d{1,3}
+            \.
+          ){3}
+          \d{1,3}
+          (
+            \:\d{1,5}
+          )?
+        )
+        $
+      }xi,
+      :must_include => [],
       :timeout => 2,
       :skip_lookup => false,
       :enforce_blacklist => false,

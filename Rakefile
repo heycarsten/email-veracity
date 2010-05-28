@@ -10,8 +10,8 @@ begin
     gem.email = 'heycarsten@gmail.com'
     gem.homepage = 'http://github.com/heycarsten/email-veracity'
     gem.authors = 'Carsten Nielsen'
-    gem.add_development_dependency 'mocha', '>= 0.9.8'
-    gem.add_development_dependency 'shoulda', '>= 2.10.2'
+    gem.add_development_dependency 'mocha', '0.9.8'
+    gem.add_development_dependency 'shoulda', '2.10.3'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
