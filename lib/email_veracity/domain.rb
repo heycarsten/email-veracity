@@ -50,13 +50,13 @@ module EmailVeracity
       add_error(:blacklisted) if blacklisted? &&
         Config[:enforce_blacklist]
       unless Config[:skip_lookup]
-        add_error(:no_records) if servers.empty? &&
-          !Config.enforced_record?(:a) &&
-          !Config.enforced_record?(:mx)
-        add_error(:no_address_servers) if address_servers.empty? &&
-          Config.enforced_record?(:a)
-        add_error(:no_exchange_servers) if exchange_servers.empty? &&
-          Config.enforced_record?(:mx)
+        add_error(:no_records) if !Config.enforced_record?(:a) && 
+          !Config.enforced_record?(:mx) && 
+          servers.empty?
+        add_error(:no_address_servers) if Config.enforced_record?(:a) && 
+          address_servers.empty?
+        add_error(:no_exchange_servers) if Config.enforced_record?(:mx) &&
+          exchange_servers.empty?
       end
     end
 
