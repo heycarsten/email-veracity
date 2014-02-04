@@ -1,0 +1,31 @@
+PATH
+  remote: .
+  specs:
+    email_veracity (0.6.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    git (1.2.5)
+    jeweler (1.8.4)
+      bundler (~> 1.0)
+      git (>= 1.2.5)
+      rake
+      rdoc
+    json (1.7.3)
+    mocha (0.9.8)
+      rake
+    rake (0.9.2.2)
+    rdoc (3.12)
+      json (~> 1.4)
+    shoulda (2.10.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  email_veracity!
+  jeweler
+  mocha (= 0.9.8)
+  rake
+  shoulda (= 2.10.3)
